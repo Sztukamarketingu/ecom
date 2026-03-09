@@ -1,4 +1,4 @@
-import sourceMarkdown from '../../../02-formularz-interaktywny.md?raw'
+import sourceMarkdown from '../../data/02-formularz-interaktywny.md?raw'
 import type { BranchRule, QuizQuestion } from '../types'
 
 const branchRules: Record<string, BranchRule> = {
