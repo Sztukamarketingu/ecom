@@ -1,5 +1,5 @@
-# Build stage
-FROM node:20-alpine AS builder
+# Build stage – node:20-slim (Debian) zamiast Alpine – lepsza kompatybilność z Vite/esbuild
+FROM node:20-slim AS builder
 
 WORKDIR /app
 
