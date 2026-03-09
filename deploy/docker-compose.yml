@@ -1,0 +1,15 @@
+services:
+  ecom:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+      args:
+        VITE_N8N_WEBHOOK_URL: https://n8n.sztukaautomatyzacji.pl/webhook/ecommerce-quiz
+        VITE_LLM_PROXY_URL: https://n8n.sztukaautomatyzacji.pl/webhook/ecommerce-llm-proxy
+        VITE_TIDYCAL_PATH: sztukamarketingu/darmowa-sesja-doradcza
+        VITE_APP_TITLE: Diagnoza E-commerce
+        VITE_REPORT_LANGUAGE: pl
+        VITE_REPORT_ONLY_MODE: "true"
+    ports:
+      - "3000:80"
+    restart: unless-stopped

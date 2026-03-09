@@ -1,0 +1,81 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "QuizPayloadV1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "timestamp",
+    "contact",
+    "answers",
+    "report",
+    "meta"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "contact": {
+      "type": "object",
+      "required": ["name", "email"],
+      "properties": {
+        "name": { "type": "string", "minLength": 2 },
+        "email": { "type": "string", "format": "email" },
+        "website": { "type": "string" }
+      }
+    },
+    "answers": {
+      "type": "object",
+      "additionalProperties": {
+        "anyOf": [
+          { "type": "string" },
+          {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        ]
+      }
+    },
+    "report": {
+      "type": "object",
+      "required": ["profile", "areas", "priorities"],
+      "properties": {
+        "profile": { "type": "string" },
+        "areas": {
+          "type": "object",
+          "required": [
+            "pomiar",
+            "feed",
+            "rentownosc",
+            "automatyzacje",
+            "oferta",
+            "strategia"
+          ],
+          "properties": {
+            "pomiar": { "type": "string", "enum": ["red", "yellow", "green"] },
+            "feed": { "type": "string", "enum": ["red", "yellow", "green"] },
+            "rentownosc": { "type": "string", "enum": ["red", "yellow", "green"] },
+            "automatyzacje": { "type": "string", "enum": ["red", "yellow", "green"] },
+            "oferta": { "type": "string", "enum": ["red", "yellow", "green"] },
+            "strategia": { "type": "string", "enum": ["red", "yellow", "green"] }
+          }
+        },
+        "priorities": { "type": "string" }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "required": ["idempotency_key", "session_id", "user_agent"],
+      "properties": {
+        "idempotency_key": { "type": "string" },
+        "session_id": { "type": "string" },
+        "user_agent": { "type": "string" },
+        "app_version": { "type": "string" }
+      }
+    }
+  }
+}
