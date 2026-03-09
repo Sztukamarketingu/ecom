@@ -1,5 +1,5 @@
 # Wersja z image: – dla Hostinger Docker Manager (bez build na VPS)
-# Obraz: ghcr.io/sztukamarketingu/ecom:latest
+# Obraz: ghcr.io/Sztukamarketingu/ecom:latest (GHCR = github.repository)
 # Port w kontenerze: 80 (nginx)
 services:
   ecom:
