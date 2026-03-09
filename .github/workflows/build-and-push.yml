@@ -1,0 +1,39 @@
+name: Build and push to ghcr.io
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to ghcr.io
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: deploy/Dockerfile
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/ecom:latest
+            ghcr.io/${{ github.repository_owner }}/ecom:${{ github.sha }}
+          build-args: |
+            VITE_N8N_WEBHOOK_URL=https://n8n.sztukaautomatyzacji.pl/webhook/ecommerce-quiz
+            VITE_LLM_PROXY_URL=https://n8n.sztukaautomatyzacji.pl/webhook/ecommerce-llm-proxy
+            VITE_TIDYCAL_PATH=sztukamarketingu/darmowa-sesja-doradcza
+            VITE_APP_TITLE=Diagnoza E-commerce
+            VITE_REPORT_LANGUAGE=pl
+            VITE_REPORT_ONLY_MODE=true
